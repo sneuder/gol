@@ -1,6 +1,7 @@
 package com.gol.gol;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GOL {
     private Grid grid;
@@ -83,37 +84,27 @@ public class GOL {
     }
 
     public void liveGenerations() {
-        try {
-            for (int i = 0; i < params.getGenerations(); i++) {
-                if (i == 0) {
-                    this.printGrid();
-                    Thread.sleep(1000);
-                }     
-
-                var copyGrid = this.grid.getCopyGrid();
-                System.out.println("Generation " + (i + 1));
-                for (int j = 0; j < this.grid.getAmountOfCells(); j++) {
-                    Cell cell;
-                    if (this.grid.getGrid().containsKey(j)) cell = copyGrid.get(j);
-                    else cell = new Cell(j, CellState.DEAD);
-
-                    if (cell.getNeighbors().length == 0) cell.setNeighbors(this.getNeighborsByCellId(cell.getId()));
-
-                    CellState newState = this.getCellStateRules(cell); 
-                    cell.setState(newState);
-
-                    copyGrid.put(j, cell);
-                }
-
-                this.grid.setGrid(copyGrid);
-                this.printGrid();
-
-                Thread.sleep(1000);
-            }
-        } catch (InterruptedException e) {
-            System.out.println("Thread interrupted: " + e.getMessage());
+        for (int i = 0; i < params.getGenerations(); i++) {
+            HashMap<Integer, Cell> copyGrid = this.grid.getCopyGrid();
+            this.liveGeneration(copyGrid);
         }
-        
+    }
+
+    public void liveGeneration(HashMap<Integer, Cell>  copyGrid) {
+        for (int j = 0; j < this.grid.getAmountOfCells(); j++) { // change for optimization
+            Cell cell;
+            if (this.grid.getGrid().containsKey(j)) cell = copyGrid.get(j);
+            else cell = new Cell(j, CellState.DEAD);
+
+            if (cell.getNeighbors().length == 0) cell.setNeighbors(this.getNeighborsByCellId(cell.getId()));
+
+            CellState newState = this.getCellStateRules(cell); 
+            cell.setState(newState);
+
+            copyGrid.put(j, cell);
+        }
+
+        this.grid.setGrid(copyGrid);
     }
 
     private CellState getCellStateRules(Cell cell) {
