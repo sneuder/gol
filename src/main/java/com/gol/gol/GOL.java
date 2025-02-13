@@ -31,9 +31,13 @@ public class GOL {
         }
         return false;
     }
-
+    
     public void setGrid(Grid grid) {
         this.grid = grid;
+    }
+    
+    public Grid getGrid() {
+        return grid;
     }
 
     public void setParams(Params params) {
@@ -105,6 +109,12 @@ public class GOL {
         }
 
         this.grid.setGrid(copyGrid);
+    }
+
+    public void changeCellStateById(Integer cellId, CellState state) {
+        if (!this.grid.getGrid().containsKey(cellId)) return;
+        Cell cell = this.grid.getGrid().get(cellId);
+        cell.setState(state);
     }
 
     private CellState getCellStateRules(Cell cell) {

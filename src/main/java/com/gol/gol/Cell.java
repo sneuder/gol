@@ -38,4 +38,8 @@ public class Cell {
     public void setNeighbors(int[] neighbors) {
         this.neighbors = neighbors;
     }
+
+    public Boolean isAlive() {
+        return this.state == CellState.ALIVE;
+    }
 }
