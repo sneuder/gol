@@ -81,10 +81,6 @@ public class Params {
             castedDefaultCellsAlived[i] = cellPosition;
         }
 
-        for (int i = 0; i < castedDefaultCellsAlived.length; i++) {
-            System.out.println(castedDefaultCellsAlived[i]);
-        }
-
         return castedDefaultCellsAlived;
     }
 
