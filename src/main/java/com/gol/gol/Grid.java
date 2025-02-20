@@ -5,15 +5,14 @@ import java.util.HashMap;
 public class Grid {
     private HashMap<Integer, Cell> grid = new HashMap<>();
 
-    private int rows;
-    private int columns;
-    private int amountOfCells;
+    private Integer rows;
+    private Integer columns;
+    private Integer amountOfCells;
 
-    public Grid(int rows, int columns) {
+    public Grid(Integer rows, Integer columns) {
         this.setRows(rows);
         this.setColumns(columns);
         this.amountOfCells = this.getRows() * this.getColumns();
-
     }
     
     public HashMap<Integer, Cell> getGrid() {
@@ -24,7 +23,7 @@ public class Grid {
         this.grid = grid;
     }
 
-    public int getRows() {
+    public Integer getRows() {
         return this.rows;
     }
 
@@ -32,7 +31,7 @@ public class Grid {
         this.rows = rows;
     }
 
-    public int getColumns() {
+    public Integer getColumns() {
         return this.columns;
     }
 
@@ -40,7 +39,7 @@ public class Grid {
         this.columns = columns;
     }
 
-    public int getAmountOfCells() {
+    public Integer getAmountOfCells() {
         return this.amountOfCells;
     }
 

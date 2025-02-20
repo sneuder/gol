@@ -6,20 +6,20 @@ enum CellState {
 }
 
 public class Cell {
-    private int id;
+    private Integer id;
     private CellState state;
-    private int[] neighbors = {};
+    private Integer[] neighbors = {};
 
     public Cell(int id, CellState state) {
         this.setId(id);
         this.setState(state);
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,11 +31,11 @@ public class Cell {
         this.state = state;
     }
 
-    public int[] getNeighbors() {
+    public Integer[] getNeighbors() {
         return this.neighbors;
     }
 
-    public void setNeighbors(int[] neighbors) {
+    public void setNeighbors(Integer[] neighbors) {
         this.neighbors = neighbors;
     }
 

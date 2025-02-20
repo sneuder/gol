@@ -3,6 +3,8 @@ package com.gol.gol;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.gol.params.Params;
+
 public class GOL {
     private Grid grid;
     private Params params;
@@ -17,7 +19,7 @@ public class GOL {
     
     private void fillGridWithCells() {
         for (int i = 0; i < this.grid.getAmountOfCells(); i++) {
-            boolean isCellAlived = this.includesInt(this.params.getDefaultCellsAlived(), i);
+            Boolean isCellAlived = this.includesInt(this.params.getDefaultCellsAlived(), i); // this must be change due to interface
             if (!isCellAlived) continue;
 
             Cell cell = new Cell(i, CellState.ALIVE);
@@ -25,7 +27,7 @@ public class GOL {
         }
     }
 
-    private boolean includesInt(int[] array, int value) {
+    private Boolean includesInt(Integer[] array, int value) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == value) return true;
         }
@@ -44,8 +46,8 @@ public class GOL {
         this.params = params;
     }
 
-    public int[] getNeighborsByCellId(int id) {
-        int currentRow = (int) Math.ceil((double)(id + 1) / params.getRows());
+    public Integer[] getNeighborsByCellId(int id) {
+        int currentRow = (int) Math.ceil((double)(id + 1) / params.getColumns());
         
         int toCellId = (currentRow * params.getColumns()) - 1;
         int fromCellId = (toCellId - params.getColumns()) + 1;
@@ -80,7 +82,7 @@ public class GOL {
         if (!isWithinRange(left, fromCellId, toCellId)) left = -1;
         if (!isWithinRange(right, fromCellId, toCellId)) right = -1;
 
-        return new int[]{top, topRight, right, bottomRight, bottom, bottomLeft, left, topLeft};
+        return new Integer[]{top, topRight, right, bottomRight, bottom, bottomLeft, left, topLeft};
     }
 
     private boolean isWithinRange(int value, int min, int max) {
@@ -88,9 +90,18 @@ public class GOL {
     }
 
     public void liveGenerations() {
+        this.printGrid();
+
         for (int i = 0; i < params.getGenerations(); i++) {
             HashMap<Integer, Cell> copyGrid = this.grid.getCopyGrid();
             this.liveGeneration(copyGrid);
+            this.printGrid();
+
+            try {
+                Thread.sleep(this.params.getMilliseconds());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -143,8 +154,9 @@ public class GOL {
         for (int i = 0; i < this.grid.getAmountOfCells(); i++) {
             if (this.grid.getGrid().containsKey(i)) {
                 Cell cell = this.grid.getGrid().get(i);
-                System.out.print(cell.getState() + " " + " ");
-            } else System.out.print(CellState.DEAD + " ");
+                char numberState = cell.getState() == CellState.ALIVE ? '■' : '□';
+                System.out.print(numberState + " " + " ");
+            } else System.out.print('□' + " " + " ");
 
             if (i % this.grid.getColumns() == this.grid.getColumns() - 1) System.out.println();
         }
