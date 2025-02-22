@@ -17,7 +17,7 @@ public class Params {
     public void setParamFromArgs(String[] args) throws GlobalException {
         if (args.length != 5) {
             String message = "Invalid number of arguments.";
-            throw new GlobalException(message, ErrorMessage.DATA_TYPE_INTEGER);
+            throw new GlobalException(message, ErrorMessage.DATA_PARAMS_AMOUNT);
         }
 
         var castedValues = this.validationsForNumberParams(args);

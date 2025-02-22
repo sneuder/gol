@@ -89,19 +89,14 @@ public class GOL {
         return value >= min && value <= max;
     }
 
-    public void liveGenerations() {
+    public void liveGenerations() throws InterruptedException {
         this.printGrid();
 
         for (int i = 0; i < params.getGenerations(); i++) {
             HashMap<Integer, Cell> copyGrid = this.grid.getCopyGrid();
             this.liveGeneration(copyGrid);
+            Thread.sleep(this.params.getMilliseconds());
             this.printGrid();
-
-            try {
-                Thread.sleep(this.params.getMilliseconds());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
